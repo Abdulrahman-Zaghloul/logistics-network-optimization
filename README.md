@@ -1,7 +1,7 @@
 # 🚚 Logistics Network Optimization & Delivery Efficiency
 
 ## 📌 Project Overview
-This project develops a GIS-based logistics optimization system to improve last-mile delivery efficiency using spatial analysis and automation.
+This project develops a `GIS-based logistics optimization system to improve last-mile delivery efficiency using spatial analysis and automation.
 
 ---
 
@@ -27,16 +27,20 @@ Tampa, Florida, USA
 ## 🔄 Workflow
 
 ### ETL (Extract, Transform, Load)
-1. Extract road network data using OSMnx
-2. Generate or import delivery locations
-3. Clean and standardize spatial data
-4. Load into spatial database
+1. Infrastructure Ingestion: Extracted high-fidelity road network data for Tampa, FL using OSMnx, ensuring the inclusion of drivable street segments.
+
+2. Spatial Point Generation: Implemented a robust while loop logic to generate 300 synthetic delivery coordinates strictly within the Tampa municipal boundary.
+
+3. Spatial Snapping & Integrity: Performed nearest-neighbor analysis to "snap" random coordinates to the closest road network nodes, ensuring 100% routing connectivity and eliminating "off-road" data points.
+
+4. Coordinate System Alignment: Reprojected all spatial layers to UTM Zone 17N (EPSG:32617) to enable mathematically accurate distance measurements in meters.
 
 ### Spatial Analysis
-1. Cluster delivery locations (K-Means)
-2. Assign clusters to drivers
-3. Optimize delivery routes using network analysis
-4. Calculate travel distance and time
+1. Territory Partitioning: Leveraged the K-Means Clustering algorithm to divide the 300 delivery points into 5 optimized zones, minimizing the total spatial variance for each driver's daily workload.
+
+2. Hub Discovery: Calculated mathematical centroids for each zone to identify optimized "local hubs" or staging areas for dispatch.
+
+3. Infrastructure Validation: Created visual overlays of road networks, delivery points, and warehouse origins to verify spatial alignment.
 
 ### Automation
 1. Input new delivery data
@@ -60,15 +64,36 @@ Tampa, Florida, USA
 
 ---
 
+## 🖼️ Analysis Results
+
+*Delivery Zones & Infrastructure Validation*
+
+The map below illustrates the 300 delivery points (colored by driver zone), the central Warehouse origin (X), and the calculated Hub centroids (*) for each territory.
+
+![Tampa Delivery Optimization Map](reports/figures/delivery_zones_kmeans.png)
+
+---
 ## 📁 Project Structure
 logistics-optimization/
 │── data/
+        │──raw
+        │──processed
 │── notebooks/
 │── src/
+│── reports/
+        │──figures
 │── outputs/
 │── README.md
 
 ---
 
 ## 🚀 Status
-Phase 1: Project setup and planning (In Progress)
+[x] Phase 1: Project setup and planning
+
+[x] Phase 2: ETL & Spatial Alignment (Snapping/Projection)
+
+[x] Phase 3: Cluster Analysis (K-Means)
+
+[ ] Phase 4: Route Optimization & Traveling Salesman Problem (TSP)
+
+[ ] Phase 5: Performance Metrics & Reporting
