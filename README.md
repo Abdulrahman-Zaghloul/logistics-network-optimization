@@ -1,14 +1,18 @@
 # 🚚 Logistics Network Optimization & Delivery Efficiency
 
 ## 📌 Project Overview
-This project develops a `GIS-based logistics optimization system to improve last-mile delivery efficiency using spatial analysis and automation.
+This project develops a GIS-based logistics optimization system to improve last-mile delivery efficiency in Tampa, Florida. By leveraging spatial clustering and network graph theory, the system automates the partitioning of service areas and calculates optimized driving routes for a fleet of five delivery vehicles.
 
 ---
 
 ## 🎯 Problem Statement
-A logistics company operating in Tampa, Florida dispatches 5 drivers daily from a central warehouse to fulfill approximately 300 customer deliveries. Current routing methods are inefficient, resulting in increased delivery times and fuel costs.
+A logistics company operating in Tampa dispatches 5 drivers daily to fulfill approximately 300 customer deliveries. Traditional routing methods often lead to overlapping territories and inefficient driving paths.
 
-This project aims to optimize delivery operations using clustering and network-based routing.
+This project solves these inefficiencies by:
+
+Clustering points to minimize travel between stops.
+
+Optimizing the specific sequence of visits using the Traveling Salesman Problem (TSP) logic.
 
 ---
 
@@ -31,7 +35,7 @@ Tampa, Florida, USA
 
 2. Spatial Point Generation: Implemented a robust while loop logic to generate 300 synthetic delivery coordinates strictly within the Tampa municipal boundary.
 
-3. Spatial Snapping & Integrity: Performed nearest-neighbor analysis to "snap" random coordinates to the closest road network nodes, ensuring 100% routing connectivity and eliminating "off-road" data points.
+3. Spatial Snapping & Integrity: Performed nearest-neighbor analysis to "snap" random coordinates to the closest road network nodes, ensuring 100% routing connectivity.
 
 4. Coordinate System Alignment: Reprojected all spatial layers to UTM Zone 17N (EPSG:32617) to enable mathematically accurate distance measurements in meters.
 
@@ -50,17 +54,28 @@ Tampa, Florida, USA
 ---
 
 ## 📊 Success Metrics
-- Total route distance
-- Total delivery time
-- Average deliveries per driver
-- Percentage improvement after optimization
+After executing the full optimization pipeline, the system achieved the following results for a single daily dispatch:
+
+| Metric                     | Value                                   |
+|--------------------------|-----------------------------------------|
+| Total Deliveries         | 300                                     |
+| Active Fleet             | 5 Drivers                               |
+| Total Fleet Mileage      | 259.21 miles                            |
+| Average Miles per Driver | ~51.8 miles                             |
+| Estimated Daily Fuel Cost| $129.61 (at $5.00/gal, 10 MPG)          |
 
 ---
 
 ## 🛠️ Tools & Technologies
-- Python (GeoPandas, OSMnx, NetworkX)
-- PostGIS
-- QGIS
+Language: Python
+
+Spatial Libraries: GeoPandas, OSMnx, Pyproj
+
+Graph Theory: NetworkX
+
+Machine Learning: Scikit-Learn (K-Means)
+
+Visualization: Matplotlib
 
 ---
 
@@ -72,17 +87,20 @@ The map below illustrates the 300 delivery points (colored by driver zone), the 
 
 ![Tampa Delivery Optimization Map](reports/figures/delivery_zones_kmeans.png)
 
+Optimized Routing (Zone 0 Example)
+Detailed street-level routing for a single driver territory, showing the optimized path connecting all delivery nodes back to the warehouse
+
+![Zone 0 Optimized Routing Map](reports/figures/zone_0_route_clean.png)
+
 ---
 ## 📁 Project Structure
 logistics-optimization/
 │── data/
-        │──raw
-        │──processed
-│── notebooks/
-│── src/
+│   ├── raw/           # Original boundary and generated points
+│   └── processed/     # Snapped points, road graphs, and clustered data
+│── notebooks/         # Development and analysis scratchpads
 │── reports/
-        │──figures
-│── outputs/
+│   └── figures/       # Exported high-contrast maps and charts
 │── README.md
 
 ---
@@ -94,6 +112,6 @@ logistics-optimization/
 
 [x] Phase 3: Cluster Analysis (K-Means)
 
-[ ] Phase 4: Route Optimization & Traveling Salesman Problem (TSP)
+[x] Phase 4: Route Optimization & TSP Implementation
 
-[ ] Phase 5: Performance Metrics & Reporting
+[x] Phase 5: Performance Metrics & Final Reporting
